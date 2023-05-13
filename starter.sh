@@ -35,20 +35,20 @@ sysctl net.ipv6.conf.eth0.keep_addr_on_down=1
 # Shut down and activate the interface.
 # Todo: Why this needed? On raspberry, where the NetworkManager is not runnning, this disturbs, because
 # afterwards the pyPlc does not see the interfaces IPv6 address.
-# ip link set eth0 down
+ip link set eth0 down
 sleep 1
-# ip link set eth0 up
+ip link set eth0 up
 sleep 1
 
 # show the addresses
 ip addr
 
 # todo: flexible path name
-mkdir -p /home/pi/myprogs/pyPLC/log
+mkdir -p /home/user/projects/pyPLC/log
 # prepare the file names for the log files
 date=$(date "+%Y-%m-%d_%H%M%S")
-logfile=/home/pi/myprogs/pyPLC/log/"$date"_pevNoGui.log
-tcpdump_logfile=/home/pi/myprogs/pyPLC/log/"$date"_tcpdump.pcap
+logfile=/home/user/projects/pyPLC/log/"$date"_pevNoGui.log
+tcpdump_logfile=/home/user/projects/pyPLC/log/"$date"_tcpdump.pcap
 
 echo "logfile: $logfile"
 echo "tcpdump_logfile: $tcpdump_logfile"
@@ -61,11 +61,11 @@ git log --oneline -1 >> "$logfile" || echo "Not a git repo" >> "$logfile"
 ip addr >> "$logfile"
 pwd >> "$logfile"
 # Todo: flexible path name
-cd /home/pi/myprogs/pyPLC/
+cd /home/user/projects/pyPLC/
 #/usr/bin/python3 /home/user/projects/pyPLC/pevNoGui.py | tee -a "$logfile"
 #stdbuf -oL -eL /usr/bin/python3 /home/user/projects/pyPLC/pevNoGui.py | tee -a "$logfile"
 #PYTHONUNBUFFERED=1 /usr/bin/python3 /home/user/projects/pyPLC/pevNoGui.py | stdbuf -oL -eL tee -a "$logfile"
-PYTHONUNBUFFERED=1 /usr/bin/python3 /home/pi/myprogs/pyPLC/pevNoGui.py | tee -a "$logfile"
+PYTHONUNBUFFERED=1 /usr/bin/python3 /home/user/projects/pyPLC/pevNoGui.py | tee -a "$logfile"
 pwd >> "$logfile"
 date >> "$logfile"
 
